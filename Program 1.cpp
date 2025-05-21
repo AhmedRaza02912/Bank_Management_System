@@ -20,7 +20,7 @@ struct Account
     string accountId, password, name;
 };
 Account A[10];
-void heading()
+/* void heading()
 {
     int ascii = 178;
     char ch = ascii;
@@ -30,7 +30,7 @@ void heading()
     cout << " BANK MANAGEMENT SYSTEM ";
     for (int i = 1; i <= 26; i++)
     cout << ch;
-}
+} */
 
 void end()
 {
