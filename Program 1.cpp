@@ -20,7 +20,6 @@ struct Account
     string accountId, password, name;
 };
 Account A[10];
-
 void heading()
 {
     int ascii = 178;
@@ -48,7 +47,7 @@ void end()
 
 void write_to_file()
 {
-    ofstream mybank("bankdatas.txt");
+    ofstream mybank("file1.txt"); // this file holds all registered account details.
     mybank << "ID\t    Amount\t\tName" << endl;
     for (int j = 0; j <= i; j++) 
     mybank << A[j].accountId << "\t    " << A[j].funds << "\t\t" << A[j].name << endl;
@@ -72,8 +71,8 @@ void add_Account()
     cout << "\n\nACCOUNT HAS BEEN CREATED! ";
     cout << "\n\nPress any key to return to Main Menu";
     write_to_file();
-    i++;  
-	getch();                         //increment number of accounts.
+    i++;   //increment number of accounts.
+	getch();                        
 }
 
 void search_Account()
@@ -146,7 +145,7 @@ void deposit_Amount()
             cout << "\nSUCCESSFUL";
             cout << "\nAccount now stores: " << A[a].funds;
             write_to_file();
-            fstream transactions("transactions.txt", ios::out | ios::app);
+            fstream transactions("file2.txt", ios::out | ios::app); // file 2 stores all transactions made by users.
             transactions << A[a].accountId <<"\t "<< amount <<"\t\t"<<" Deposited"<<endl;
             transactions.close();
         }
@@ -178,7 +177,7 @@ void retrieve_Amount()
                 cout << "\nAccount now stores: " << A[a].funds;
                 write_to_file();
             }
-            fstream transactions("transactions.txt", ios::out | ios::app);
+            fstream transactions("file2.txt", ios::out | ios::app);
             transactions << A[a].accountId <<"\t "<< amount <<"\t\t"<<" Retrieved"<<endl;
             transactions.close();
         }
@@ -213,7 +212,7 @@ void All_accounts()
     system("cls");
     heading();
     string date, password, admin, storedPassword = "ABC123";
-    string admin1 = "Amjad Usman";
+    string admin1 = "44AbuDhabi";
     cout << "\n\nEnter password: ";
     cin>>password;
     if (password != storedPassword)
@@ -228,12 +227,13 @@ void All_accounts()
         cout << "\n\nAdmin Name incorrect!!";
         else
         {   
-            fstream adminLogins("Logins2.txt", ios::out | ios::app);
+            fstream adminLogins("file3.txt", ios::out | ios::app); // file3 holds admin record 
+		                                                   // for when they accessed the database.
             adminLogins << date << "\t\t" << admin << endl;
             adminLogins.close();
             cout << "\n\n\t\tACCOUNTS DATABASE";
             cout<<"\n------------------------------------------------\n";
-            fstream mybank("bankdatas.txt", ios::in);
+            fstream mybank("file1.txt", ios::in);
            while(!mybank.eof())
 		   {
            	string line;
@@ -260,7 +260,7 @@ void access_History()
     if (password == accessPassword)
     {
         cout << "\n\n\t\tADMIN ACCESS DATABASE";
-        fstream adminLogins("Logins2.txt", ios::in);
+        fstream adminLogins("file3.txt", ios::in);
         cout << "\n-------------------------------------------------------\n";
         while (!adminLogins.eof())
         {
@@ -280,7 +280,7 @@ void access_History()
 void check_Transactions()
 {   
     system("cls");
-	fstream transactions("transactions.txt", ios::in);
+	fstream transactions("file2.txt", ios::in);
 	while(!transactions.eof())
 	{
 		string line;
@@ -320,10 +320,10 @@ void admin_Operations()
 
 int main() 
 {
-    fstream adminLogins("Logins2.txt", ios::out | ios::app);
+    fstream adminLogins("file3.txt", ios::out | ios::app);
     adminLogins << "Date\t\t Admin Name" << endl;
     adminLogins.close();
-    fstream transactions("transactions.txt", ios::out | ios::app);
+    fstream transactions("file2.txt", ios::out | ios::app);
     transactions << "ID\t Amount \t\tTransactions"<<endl;
     transactions.close();
     short int choice;
